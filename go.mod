@@ -1,4 +1,4 @@
-module go-logging
+module github.com/PrimaKu/log
 
 go 1.21.6
 
