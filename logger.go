@@ -8,8 +8,6 @@ import (
 	"time"
 )
 
-type Field map[string]interface{}
-
 type (
 	Logger interface {
 		Debug(msg string, args ...any)
@@ -50,7 +48,7 @@ func (l *logger) log(level slog.Level, msg string, args ...any) {
 		slog.Any("data", args))
 }
 
-func (l *logger) logWithFields(level slog.Level, msg string, fields Field) {
+func (l *logger) logWithFields(level slog.Level, msg string, fields map[string]interface{}) {
 	attrs := make([]slog.Attr, 0, len(fields)+1)
 	attrs = append(attrs, slog.String("timestamp", time.Now().Format(time.RFC3339)))
 
@@ -77,18 +75,18 @@ func (l *logger) Error(msg string, args ...any) {
 	l.log(slog.LevelError, msg, args...)
 }
 
-func (l *logger) DebugWithFields(msg string, fields Field) {
+func (l *logger) DebugWithFields(msg string, fields map[string]interface{}) {
 	l.logWithFields(slog.LevelDebug, msg, fields)
 }
 
-func (l *logger) InfoWithFields(msg string, fields Field) {
+func (l *logger) InfoWithFields(msg string, fields map[string]interface{}) {
 	l.logWithFields(slog.LevelInfo, msg, fields)
 }
 
-func (l *logger) WarnWithFields(msg string, fields Field) {
+func (l *logger) WarnWithFields(msg string, fields map[string]interface{}) {
 	l.logWithFields(slog.LevelWarn, msg, fields)
 }
 
-func (l *logger) ErrorWithFields(msg string, fields Field) {
+func (l *logger) ErrorWithFields(msg string, fields map[string]interface{}) {
 	l.logWithFields(slog.LevelError, msg, fields)
 }
