@@ -14,10 +14,10 @@ type (
 		Info(msg string, args ...any)
 		Warn(msg string, args ...any)
 		Error(msg string, args ...any)
-		DebugWithFields(msg string, fields Field)
-		InfoWithFields(msg string, fields Field)
-		WarnWithFields(msg string, fields Field)
-		ErrorWithFields(msg string, fields Field)
+		DebugWithFields(msg string, fields map[string]interface{})
+		InfoWithFields(msg string, fields map[string]interface{})
+		WarnWithFields(msg string, fields map[string]interface{})
+		ErrorWithFields(msg string, fields map[string]interface{})
 	}
 	logger struct {
 		slog        *slog.Logger
