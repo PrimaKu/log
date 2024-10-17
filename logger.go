@@ -5,7 +5,6 @@ import (
 	"io"
 	"log/slog"
 	"os"
-	"time"
 )
 
 type (
@@ -44,13 +43,11 @@ func NewLogger(serviceName string, level slog.Level, out io.Writer) Logger {
 
 func (l *logger) log(ctx context.Context, level slog.Level, msg string, args ...any) {
 	l.slog.LogAttrs(ctx, level, msg,
-		slog.String("timestamp", time.Now().Format(time.RFC3339)),
 		slog.Any("data", args))
 }
 
 func (l *logger) logWithFields(ctx context.Context, level slog.Level, msg string, fields map[string]interface{}) {
-	attrs := make([]slog.Attr, 0, len(fields)+1)
-	attrs = append(attrs, slog.String("timestamp", time.Now().Format(time.RFC3339)))
+	attrs := make([]slog.Attr, 0)
 
 	for k, v := range fields {
 		attrs = append(attrs, slog.Any(k, v))
